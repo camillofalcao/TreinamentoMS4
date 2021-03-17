@@ -1,0 +1,29 @@
+{
+    "cartoes" : [
+        {
+            "id": "slkdajfoausyeifuhwaejnfkweuyiu",
+            "foto":"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fconteudo.imguol.com.br%2Fblogs%2F174%2Ffiles%2F2018%2F05%2FiStock-648229868-1024x909.jpg&f=1&nofb=1", 
+            "nome":"Ana",
+            "membroDesde":"2019",
+            "descricao":"Aqui colocarei uma frase qualquer.", 
+            "numeroAmigos":"200"
+        },
+        {
+            "id": "jsdfyiuhkhafu899k",
+            "foto":"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.sVXGHnSanfyV68Nnuyms8wAAAA%26pid%3DApi&f=1", 
+            "nome":"Bruno", 
+            "membroDesde":"2018", 
+            "descricao":"Teste de frase.", 
+            "numeroAmigos":"100"
+        },
+        {
+            "id": "1kdfdsli8ulkwsçl",
+            "foto":"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.ibxk.com.br%2F2017%2F06%2F22%2F22100428046161.jpg&f=1&nofb=1", 
+            "nome":"Carlos", 
+            "membroDesde":"2020", 
+            "descricao":"1, 2, 3, testando!", 
+            "numeroAmigos":"150"
+    
+        }
+    ]
+}

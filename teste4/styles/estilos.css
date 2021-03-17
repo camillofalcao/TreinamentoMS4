@@ -1,0 +1,60 @@
+h1 {
+    letter-spacing: 1px;
+    color: rgb(18, 83, 168);
+    font-size: 200%;
+}
+
+.error {
+  width  : 100%;
+  padding: 0;
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+}
+
+.error.active {
+  padding: 0.3em;
+}
+
+input.valido {
+    letter-spacing: 1px;
+    border: 2px solid rgba(7, 99, 219, 0.356);
+    box-shadow: 1px 1px 2px rgba(0,0,200,0.4);
+    border-radius: 5px;
+    height: 30px;
+  }
+
+input.invalido {
+    letter-spacing: 1px;
+    border: 2px solid rgba(170, 12, 6, 0.877);
+    box-shadow: 1px 1px 2px rgba(200, 63, 0, 0.945);
+    border-radius: 5px;
+    height: 30px;
+  }
+
+  #mensagem {
+      letter-spacing: 1px;
+      color: brown;
+      font-size: large;
+  }
+  
+button {
+    font-family: 'helvetica neue', helvetica, sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    border: 2px solid rgba(7, 99, 219, 0.356);
+    background: rgba(82, 144, 226, 0.356);
+    color: rgba(10, 79, 145, 0.6);
+    box-shadow: 1px 1px 2px rgba(0,0,200,0.4);
+    border-radius: 10px;
+    padding: 3px 10px;
+    display: inline-block;
+    cursor: pointer;
+    height: 30px;
+    width: 50px;
+  }
+
+ 
+
+ 
