@@ -28,7 +28,6 @@ namespace ContatosApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -36,7 +35,11 @@ namespace ContatosApplication
             });
 
             services.AddDbContext<ContatosApplicationContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ContatosApplicationContext")));
+                    options.UseSqlServer(
+                        Configuration.GetConnectionString("ContatosApplicationContext")
+            ));
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +51,11 @@ namespace ContatosApplication
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ContatosApplication v1"));
             }
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

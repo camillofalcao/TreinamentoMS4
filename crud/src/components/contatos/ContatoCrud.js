@@ -2,15 +2,27 @@ import React from 'react';
 import ContatoLista from './ContatoLista';
 import ContatoConsulta from './ContatoConsulta';
 import ContatoAlteraInclui from './ContatoAlteraInclui';
+import api from '../../apis';
 
 class ContatoCrud extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            objetos: contatos, 
+            objetos: [], 
             objetoSelecionado: null,
-            status: ETipoAcao.listando
+            status: ETipoAcao.carregando
         };
+    }
+
+    componentDidMount() {
+        this.consultarDados();
+    }
+
+    consultarDados = () => {
+        api.get("/api/contato")
+        .then(result => {
+            this.setState({ objetos: result.data, status: ETipoAcao.listando });
+        });
     }
 
     consultar = (objeto) => {
@@ -26,41 +38,33 @@ class ContatoCrud extends React.Component {
     }
 
     salvarAlteracao = (objeto) => {
-        let objetoNoVetor = null;
-        const objetos = this.state.objetos;
-        for (let i = 0; i < objetos.length; i++) {
-            if (objetos[i].ContatoId === objeto.ContatoId) {
-                objetoNoVetor = objetos[i];
+        api.put(`/api/contato/${objeto.contatoId}`, objeto)
+        .then(result => {
+            if (result.status === 204) {
+                this.setState({ status: ETipoAcao.carregando });
+                this.consultarDados();
             }
-        }
-
-        if (objetoNoVetor !== null) {
-            objetoNoVetor.Nome = objeto.Nome;
-            objetoNoVetor.Numero = objeto.Numero;
-        }
-
-        this.setState({ objetos: objetos, status: ETipoAcao.listando });
+        });
     };
 
     salvarInclusao = (objeto) => {
-        this.setState({ objetos: [...this.state.objetos, objeto], status: ETipoAcao.listando });
+        api.post("/api/contato", objeto)
+        .then(result => {
+            if (result.status === 201) {
+                this.setState({ status: ETipoAcao.carregando });
+                this.consultarDados();
+            }
+        });
     }
 
     deletar = (id) => {
-        const objetos = this.state.objetos;
-        let indice = -1;
-
-        for (let i = 0; i < objetos.length; i++) {
-            if (objetos[i].ContatoId === id) {
-                indice = i;
+        api.delete(`/api/contato/${id}`)
+        .then(result => {
+            if (result.status === 204) {
+                this.setState({ status: ETipoAcao.carregando });
+                this.consultarDados();
             }
-        }
-
-        if (indice >= 0) {
-            objetos.splice(indice, 1);
-        }
-
-        this.setState({ objetos: objetos });
+        });
     };
 
     voltar = () => {
@@ -77,16 +81,16 @@ class ContatoCrud extends React.Component {
             );
         }
         else if (this.state.status === ETipoAcao.consultando) {
-            return <ContatoConsulta voltar={this.voltar} objeto={this.state.objetoSelecionado} />;
+            return <ContatoConsulta voltar={this.voltar} id={this.state.objetoSelecionado.contatoId} />;
         }
         else if (this.state.status === ETipoAcao.alterando) {
-            return <ContatoAlteraInclui salvarAlteracao={this.salvarAlteracao} voltar={this.voltar} objeto={this.state.objetoSelecionado} />;
+            return <ContatoAlteraInclui incluindo={false} salvarAlteracao={this.salvarAlteracao} voltar={this.voltar} id={this.state.objetoSelecionado.contatoId} />;
         }
         else if (this.state.status === ETipoAcao.incluindo) {
-            return <ContatoAlteraInclui salvarAlteracao={this.salvarInclusao} voltar={this.voltar} objeto={{}} />
+            return <ContatoAlteraInclui incluindo={true} salvarAlteracao={this.salvarInclusao} voltar={this.voltar} />
         }
         else {
-            return <div></div>;
+            return <div>Carregando...</div>;
         }   
     }
 
@@ -99,12 +103,6 @@ class ContatoCrud extends React.Component {
         );
     }
 }
-
-const contatos = [
-    { ContatoId: 'a', Nome: 'Ana', Numero: '(11)1111-1111' },
-    { ContatoId: 'b', Nome: 'Bruno', Numero: '(22)2222-2222' },
-    { ContatoId: 'c', Nome: 'Carlos', Numero: '(33)3333-3333' }
-];
 
 const ETipoAcao = Object.freeze({
 	"carregando":1, 
