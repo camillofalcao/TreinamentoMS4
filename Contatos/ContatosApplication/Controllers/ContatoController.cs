@@ -56,7 +56,14 @@ namespace ContatosApplication.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(contato).State = EntityState.Modified;
+            var numerosDeletados = 
+                _context.ContatoNumero.Where(x => x.ContatoId == id && !contato.Numeros.Contains(x));
+
+            foreach(var numeroDeletado in numerosDeletados)
+                _context.Entry(numeroDeletado).State = EntityState.Deleted;
+
+            //_context.Entry(contato).State = EntityState.Modified;
+            _context.Update(contato);
 
             try
             {
@@ -82,8 +89,6 @@ namespace ContatosApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Contato>> PostContato(Contato contato)
         {
-            contato.ContatoId = Guid.NewGuid().ToString();
-
             _context.Contato.Add(contato);
 
             try

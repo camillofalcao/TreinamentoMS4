@@ -21,8 +21,17 @@ namespace ContatosInfraestructure.Data
                 .WithOne()
                 .HasForeignKey(p => p.ContatoId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Contato>()
+                .Property(x => x.ContatoId)
+                .HasDefaultValueSql("NEWID()");
+
+            modelBuilder.Entity<ContatoNumero>()
+                .Property(x => x.ContatoNumeroId)
+                .HasDefaultValueSql("NEWID()");
         }
 
         public DbSet<Contato> Contato { get; set; }
+        public DbSet<ContatoNumero> ContatoNumero { get; set; }
     }
 }

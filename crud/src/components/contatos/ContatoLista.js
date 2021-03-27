@@ -8,9 +8,9 @@ class ContatoLista extends React.Component {
                     <tr key={x.contatoId}>
                         <td>{x.nome}</td>
                         <td>
-                            <button onClick={() => {this.props.consultar(x)}} className="tiny ui grey button">Consultar</button>
-                            <button onClick={() => {this.props.alterar(x)}} className="tiny ui blue button">Alterar</button>
-                            <button onClick={() => {this.props.deletar(x.contatoId)}} className="tiny ui red button">Excluir</button>
+                            <a href={`/contato/consultar/${x.contatoId}`} className="tiny ui grey button">Consultar</a>
+                            <a href={`/contato/alterar/${x.contatoId}`} className="tiny ui blue button">Alterar</a>
+                            <a href={`/contato/deletar/${x.contatoId}`} className="tiny ui red button">Excluir</a>
                         </td>
                     </tr>
                 );

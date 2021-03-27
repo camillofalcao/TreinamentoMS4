@@ -11,6 +11,17 @@ namespace ContatosDomain.Models
         public string ContatoId { get; set; }
 
         public ETipoNumero Tipo { get; set; }
+        public string TipoString { get => Tipo.ToString(); }
         public string Numero { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is ContatoNumero && ((ContatoNumero)obj).ContatoId == this.ContatoId;
+        }
+
+        public override int GetHashCode()
+        {
+            return ("ContatoNumero######" + ContatoNumeroId).GetHashCode();
+        }
     }
 }
